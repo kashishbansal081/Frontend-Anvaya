@@ -1,4 +1,4 @@
-# Anvaya
+# Anvaya CRM
 
 A full-stack CRM (Customer Relationship Management) application focused on structured lead management.  
 The application enables organizations to manage leads across different lifecycle stages, assign sales agents, track updates through comments, and monitor performance through reports.
