@@ -4,12 +4,15 @@ import './index.css';
 import './Components/ChartSetup'
 import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import AuthProvider from './useContext/AuthContext'
 
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    <AuthProvider>
     <App />
+    </AuthProvider>
   </React.StrictMode>
 );

@@ -1,5 +1,4 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
 import LeadForm from "./Components/Features/LeadForm";
 import LeadManagementPage from "./Pages/Leads/LeadManagementPage";
 import DashboardLayout from "./Pages/Dashboard/Dashboard";
@@ -13,12 +12,18 @@ import SettingPage from "./Pages/Setting";
 import LeadStatusView from "./Components/Features/LeadStatusView";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import LoginPage from "./Pages/LoginPage";
+import SignupPage from "./Pages/SingupPage";
+import { Navigate } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "./useContext/AuthContext";
 
 function App() {
+  const {token} = useContext(AuthContext)
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <DashboardLayout />,
+      element: token ? <DashboardLayout /> : <Navigate to="/login" />,
     },
     {
       path: "/leadForm",
@@ -59,6 +64,14 @@ function App() {
     {
       path: "/demo",
       element: <LeadStatusView />,
+    },
+    {
+      path: "/login",
+      element: <LoginPage />,
+    },
+    {
+      path: "/signup",
+      element: <SignupPage />,
     },
   ]);
 

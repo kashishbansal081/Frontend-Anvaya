@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import Sidebar from "../Components/Layout/Sidebar";
+import { useNavigate } from "react-router-dom";
 
 export default function SettingPage() {
   const [leads, setLeads] = useState([]);
   const [agents, setAgents] = useState([]);
+  const navigate = useNavigate();
 
   const fetchLeads = async () => {
     const res = await fetch("https://crm-backend-beryl.vercel.app/v1/leads");
@@ -15,6 +17,11 @@ export default function SettingPage() {
     const res = await fetch("https://crm-backend-beryl.vercel.app/v1/agents");
     const data = await res.json();
     setAgents(data);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
   };
 
   useEffect(() => {
@@ -69,12 +76,16 @@ export default function SettingPage() {
         <Sidebar />
 
         <div className="settings-content px-3 px-md-4 py-4">
-          <h2 className="mb-4">Settings</h2>
+          <div className="d-flex justify-content-between align-items-center mb-4">
+            <h2 className="mb-0">Settings</h2>
+
+            <button className="btn btn-danger" onClick={handleLogout}>
+              Logout
+            </button>
+          </div>
 
           <div className="card mb-4 w-100">
-            <div className="card-header fw-semibold">
-              Leads Management
-            </div>
+            <div className="card-header fw-semibold">Leads Management</div>
             <div className="card-body">
               {leads.map((lead) => (
                 <div
@@ -105,9 +116,7 @@ export default function SettingPage() {
                 >
                   <span>
                     {agent.name}{" "}
-                    <small className="text-muted">
-                      ({agent.email})
-                    </small>
+                    <small className="text-muted">({agent.email})</small>
                   </span>
                   <button
                     className="btn btn-sm btn-danger"
